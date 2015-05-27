@@ -15,7 +15,7 @@ if (getCurrentUsername()!=null) {
     if ($username != null) {
 
         $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
-        $get_profile = oci_parse($c, 'SELECT * FROM TABLE(DISPLAY_USER_PROFILE(:username))');
+        $get_profile = oci_parse($c, 'SELECT * FROM TABLE(SGBD_PKG.DISPLAY_USER_PROFILE(:username))');
         oci_bind_by_name($get_profile, ':username', $username);
         oci_execute($get_profile);
         $profile = null;
