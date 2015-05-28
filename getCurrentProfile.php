@@ -1,14 +1,8 @@
 <?php
 
 require_once('profile.php');
-function getCurrentUsername()
-    {
-        if (isset($_COOKIE['login']) && $_COOKIE['login'] != '') {
-            return $_COOKIE['login'];
-        } else {
-            return null;
-        }
-    }
+require_once('getCurrentUsername.php');
+
 
 if (getCurrentUsername()!=null) {
     $username = $_GET['username'];

@@ -1,34 +1,44 @@
 <?php
     // check in db
-    require_once("Profile.php");
+    require_once('getCurrentUsername.php');
+    require_once("randomString.php");
+if (getCurrentUsername()==null) {
+
     $username = '';
-    if(isset($_POST['user'])){
+    if (isset($_POST['user'])) {
         $username = $_POST['user'];
     }
     $password = '';
-    if(isset($_POST['password'])){
+    if (isset($_POST['password'])) {
         $password = $_POST['password'];
     }
 //    $hashed_pass=password_hash($password, PASSWORD_DEFAULT);
     $hashed_pass = $password;
 
     $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
-    $stid = oci_parse($c, 'SELECT user_profile.username,last_name,first_name,points
-                            FROM utilizatori,user_profile
-                            WHERE utilizatori.username=\'' . $username . '\' AND utilizatori.passworduser=\''. $hashed_pass . '\'
-                            AND utilizatori.username=user_profile.username');
+    $stid = oci_parse($c, 'SELECT *
+                            FROM utilizatori
+                            WHERE utilizatori.username=\'' . $username . '\' AND utilizatori.passworduser=\'' . $hashed_pass . '\'');
 
 
     oci_execute($stid);
-    if(($row = oci_fetch_array($stid, OCI_ASSOC))!=false){
-        setcookie("login", $username);
-        $profile = new Profile($row['USERNAME'], $row['LAST_NAME'], $row['FIRST_NAME'], $row['POINTS']);
+    if (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
+        $token = generateRandomString(20);
+        $stid = oci_parse($c, 'INSERT into utilizatori_tokens values (:token, :username)');
+        oci_bind_by_name($stid, ':token', $token);
+        oci_bind_by_name($stid, ':username', $username);
+        oci_execute($stid);
         oci_close($c);
-        header("Content-type: application/json");
-        echo json_encode($profile);
-    }
-    else {
+
+        setcookie("sid", $token);
+        header("Location: http://localhost/gus/homepage.html ");//todo
+    } else {
         die  ("Wrong username,password combination");
+
+    }
+}
+    else{
+        header("Location: http://localhost/gus/homepage.html ");//todo
 
     }
 //

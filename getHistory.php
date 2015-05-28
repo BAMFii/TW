@@ -1,6 +1,6 @@
 <?php
 
-require_once('getCurrentProfile.php');
+require_once('getCurrentUsername.php');
 require_once('history.php');
 
 

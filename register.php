@@ -24,8 +24,7 @@
             oci_execute($profile);
             oci_commit($c);
             oci_close($c);
-            $user_profile = new Profile($username, $first_name, $last_name, $points);
-            echo json_encode($user_profile);
+            header("Location: http://localhost/gus/homepage.html ");//todo
         }
         else{
             die ("Username already exists. Try another one");

@@ -1,7 +1,9 @@
 <?php
 
+    require_once('getCurrentUsername.php');
     require_once("Question.php");
     require_once("Game.php");
+if (getCurrentUsername()!=null) {
 
     $category = $_GET['category'];
     $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
@@ -18,14 +20,18 @@
 
     oci_execute($category_question);
 
-    $questions=array();
+    $questions = array();
 
     while (($row = oci_fetch_array($category_question, OCI_ASSOC)) != false) {
 
-        array_push($questions,new Question($row['QID'], $row['CORRECT_ANSWER'], $row['ANSWER_2'], $row['ANSWER_3'], $row['ANSWER_4']));
+        array_push($questions, new Question($row['QID'], $row['CORRECT_ANSWER'], $row['ANSWER_2'], $row['ANSWER_3'], $row['ANSWER_4']));
     }
-    $game=new Game($gameId,$category,$questions);
+    $game = new Game($gameId, $category, $questions);
     oci_close($c);
 
     header("Content-type: application/json");
     echo json_encode($game);
+}
+    else {
+        http_response_code(401);
+    }
