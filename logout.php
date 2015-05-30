@@ -9,6 +9,6 @@ if (getCurrentUsername()!=null){
     oci_execute($stid);
     oci_close($c);
     setcookie ('sid', '', time() - 3600);
-    header("Location: http://localhost/gus/login.html ");//todo
+    header("Location: http://localhost/gus/homepage.html ");//todo
 
 }

@@ -18,13 +18,13 @@
 
             oci_execute($stmt);
             $points=0;
-            $profile=oci_parse($c,'insert into user_profile(username,last_name,first_name,points) values(\'' .  $username . '\', \'' .
+            $profile=oci_parse($c,'insert into user_profile1(username,last_name,first_name,points) values(\'' .  $username . '\', \'' .
                 $last_name . '\', \'' .   $first_name . '\', ' .   $points . ')');
 
             oci_execute($profile);
             oci_commit($c);
             oci_close($c);
-            header("Location: http://localhost/gus/homepage.html ");//todo
+            header("Location: http://localhost/gus/mainPage.html ");//todo
         }
         else{
             die ("Username already exists. Try another one");
