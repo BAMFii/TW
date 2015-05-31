@@ -7,7 +7,7 @@ function getCurrentUsername()
         $token = $_COOKIE['sid'];
         $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
         $stid = oci_parse($c, 'SELECT username
-                            FROM utilizatori_tokens
+                            FROM utilizatori_token
                             WHERE token = :token');
         oci_bind_by_name($stid, ":token", $token);
         oci_execute($stid);

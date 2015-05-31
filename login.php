@@ -12,29 +12,33 @@ if (getCurrentUsername()==null) {
     if (isset($_POST['password'])) {
         $password = $_POST['password'];
     }
-//    $hashed_pass=password_hash($password, PASSWORD_DEFAULT);
-    $hashed_pass = $password;
 
     $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
-    $stid = oci_parse($c, 'SELECT *
+    $stid = oci_parse($c, 'SELECT passworduser
                             FROM utilizatori
-                            WHERE utilizatori.username=\'' . $username . '\' AND utilizatori.passworduser=\'' . $hashed_pass . '\'');
+                            WHERE utilizatori.username=:username');
+    oci_bind_by_name($stid,':username',$username);
 
 
     oci_execute($stid);
     if (($row = oci_fetch_array($stid, OCI_ASSOC)) != false) {
-        $token = generateRandomString(20);
-        $stid = oci_parse($c, 'INSERT into utilizatori_tokens values (:token, :username)');
-        oci_bind_by_name($stid, ':token', $token);
-        oci_bind_by_name($stid, ':username', $username);
-        oci_execute($stid);
-        oci_close($c);
+        if (password_verify($password, $row['PASSWORDUSER'])) {
 
-        setcookie("sid", $token);
-        header("Location: http://localhost/gus/mainPage.html ");//todo
-    } else {
+            $token = generateRandomString(20);
+            $stid = oci_parse($c, 'INSERT into utilizatori_token values (:token, :username)');
+            oci_bind_by_name($stid, ':token', $token);
+            oci_bind_by_name($stid, ':username', $username);
+            oci_execute($stid);
+            oci_close($c);
+
+            setcookie("sid", $token);
+             header("Location: http://localhost/gus/mainPage.html ");//todo
+        } else {
+            die  ("Wrong username,password combination");
+
+        }
+    }else {
         die  ("Wrong username,password combination");
-
     }
 }
     else{
