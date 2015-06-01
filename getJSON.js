@@ -24,6 +24,7 @@ function Question(qid,q,a1,a2,a3,a4){
  var score=0;
  var currentQuestion=1;
  var userAnswer;
+ var replacement;
 
 
     function processor(){
@@ -82,7 +83,7 @@ function handleQuizJSON() {
 function playQuiz(intrebare){
     var answers=[intrebare.a1,intrebare.a2,intrebare.a3,intrebare.a4];
     answers=shuffle(answers);
-    var replacement=document.getElementById("rep");
+    replacement=document.getElementById("rep");
     replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'a1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'a2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'a3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'a4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
 }
 
