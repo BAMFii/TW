@@ -1,9 +1,3 @@
-/**
- * Created by Bogdan Nechita on 6/1/2015.
- */
-
-    //create the object
-
 function Question(qid,q,a1,a2,a3,a4){
     this.qid=qid;
     this.q=q;
@@ -13,41 +7,40 @@ function Question(qid,q,a1,a2,a3,a4){
     this.a4=a4;
 }
 
- xmlhttp = new XMLHttpRequest();
- var quiz;
- var question="Who is this person?";
- var qid;
- var a1;
- var a2;
- var a3;
- var a4;
- var score=0;
- var currentQuestion=1;
- var userAnswer;
- var replacement;
+xmlhttp = new XMLHttpRequest();
+var quiz;
+var question="Who is this person?";
+var qid;
+var a1;
+var a2;
+var a3;
+var a4;
+var score=0;
+var currentQuestion=1;
+var userAnswer;
 
 
-    function processor(){
-        if(xmlhttp.readyState===0||xmlhttp.readyState===4){
-            xmlhttp.open("GET","http://localhost/gus/gameController.php?category=movies",true);
-            xmlhttp.onreadystatechange = handleQuizJSON;
-            xmlhttp.send(null);
-        }
-        else {
-            setTimeout('processor()',1000);
-        }
+function processor(){
+    if(xmlhttp.readyState===0||xmlhttp.readyState===4){
+        xmlhttp.open("GET","http://localhost/gus/gameController.php?category=movies",true);
+        xmlhttp.onreadystatechange = handleQuizJSON;
+        xmlhttp.send(null);
     }
-
-    function verifyAnswer(){
-        if(xmlhttp.readyState===0||xmlhttp.readyState===4){
-            xmlhttp.open("GET","localhost/gus/answerQuestion.php?answer="+userAnswer+"&questionId="+quiz[currentQuestion-1].qid,true);
-            xmlhttp.onreadystatechange = handleQuizJSON;
-            xmlhttp.send(null);
-        }
-        else {
-            setTimeout('processor()',1000);
-        }
+    else {
+        setTimeout('processor()',1000);
     }
+}
+
+function verifyAnswer(givenAnswer){
+    if(xmlhttp.readyState===0||xmlhttp.readyState===4){
+        xmlhttp.open("GET","localhost/gus/answerQuestion.php?answer="+givenAnswer+"&questionId="+quiz[currentQuestion-1].qid,true);
+        xmlhttp.onreadystatechange = checkIfCorrect;
+        xmlhttp.send(null);
+    }
+    else {
+        setTimeout('processor()',1000);
+    }
+}
 
 function handleQuizJSON() {
     quiz = [];
@@ -78,12 +71,18 @@ function handleQuizJSON() {
     }
 }
 
+function veziQuiz(){
+    var quiz2 = [];
+    quiz2.push(new Question(1, 2, 3, 3, 4, 5));
+    quiz2.push(new Question(1, 2, 3, 3, 4, 5));
+
+}
 
 
 function playQuiz(intrebare){
     var answers=[intrebare.a1,intrebare.a2,intrebare.a3,intrebare.a4];
     answers=shuffle(answers);
-    replacement=document.getElementById("rep");
+    var replacement=document.getElementById("rep");
     replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'a1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'a2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'a3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'a4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
 }
 
@@ -98,14 +97,16 @@ function nextQuestion(){
 
 function answerQuestion(clickedId){
     userAnswer=document.getElementById(clickedId).value;
-    if(checkIfCorrect(givenAnswer) === true)
+    if(verifyAnswer(givenAnswer) === true){
         score++;
+    }
+
     nextQuestion();
 
     return clickedId;
 }
 
-function checkIfCorrect(givenAnswer){
+function checkIfCorrect(){
     if (xmlhttp.status === 200 && xmlhttp.readyState === 4) {
         var rezultat=xmlhttp.responseText;
         if(rezultat==='true')
@@ -113,14 +114,13 @@ function checkIfCorrect(givenAnswer){
         else
             return false;
         /*var result = JSON.parse(xmlhttp.responseText);
-
-        var obj = result[0];
-        for (var key in obj){
-            if(obj[key]==='true')
-                return true;
-            else
-                return false;
-        }*/
+         var obj = result[0];
+         for (var key in obj){
+         if(obj[key]==='true')
+         return true;
+         else
+         return false;
+         }*/
     }
     else {
         console.log(22222);
