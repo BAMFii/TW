@@ -7,8 +7,8 @@ function Question(qid,q,a1,a2,a3,a4){
     this.a4=a4;
 }
 
-xmlhttp = new XMLHttpRequest();
-var quiz;
+var xmlhttp = new XMLHttpRequest();
+var quiz = [];
 var question="Who is this person?";
 var qid;
 var a1;
@@ -21,6 +21,7 @@ var userAnswer;
 
 
 function processor(){
+
     if(xmlhttp.readyState===0||xmlhttp.readyState===4){
         xmlhttp.open("GET","http://localhost/gus/gameController.php?category=movies",true);
         xmlhttp.onreadystatechange = handleQuizJSON;
@@ -33,7 +34,7 @@ function processor(){
 
 function verifyAnswer(givenAnswer){
     if(xmlhttp.readyState===0||xmlhttp.readyState===4){
-        xmlhttp.open("GET","localhost/gus/answerQuestion.php?answer="+givenAnswer+"&questionId="+quiz[currentQuestion-1].qid,true);
+        xmlhttp.open("GET","http://localhost/gus/answerQuestion.php?answer="+encodeURI(givenAnswer)+"&questionId="+quiz[currentQuestion-1].qid,true);
         xmlhttp.onreadystatechange = checkIfCorrect;
         xmlhttp.send(null);
     }
@@ -43,7 +44,6 @@ function verifyAnswer(givenAnswer){
 }
 
 function handleQuizJSON() {
-    quiz = [];
     if (xmlhttp.status === 200 && xmlhttp.readyState === 4) {
         var result = JSON.parse(xmlhttp.responseText);
         for (var k = 0; k < result.length; k++) {
@@ -83,7 +83,7 @@ function playQuiz(intrebare){
     var answers=[intrebare.a1,intrebare.a2,intrebare.a3,intrebare.a4];
     answers=shuffle(answers);
     var replacement=document.getElementById("rep");
-    replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'a1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'a2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'a3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'a4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
+    replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'ans1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'ans2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'ans3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'ans4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
 }
 
 function nextQuestion(){
@@ -97,7 +97,7 @@ function nextQuestion(){
 
 function answerQuestion(clickedId){
     userAnswer=document.getElementById(clickedId).value;
-    if(verifyAnswer(givenAnswer) === true){
+    if(verifyAnswer(userAnswer) === true){
         score++;
     }
 
