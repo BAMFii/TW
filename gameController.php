@@ -30,7 +30,7 @@ if (getCurrentUsername()!=null) {
     oci_close($c);
 
     header("Content-type: application/json");
-    echo json_encode($game);
+    echo json_encode($questions);
 }
     else {
         http_response_code(401);

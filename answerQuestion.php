@@ -6,7 +6,8 @@ if (getCurrentUsername()!=null) {
     $qid = $_GET['questionId'];
 
     $c = oci_connect("SYSTEM", "rogerfed17", "localhost/XE");
-    $true_answer = oci_parse($c, 'SELECT correct_answer FROM questions WHERE qid=' . $qid);
+    $true_answer = oci_parse($c, 'SELECT correct_answer FROM questions WHERE qid=:qid');
+    oci_bind_by_name($true_answer,':qid',$qid, -1, SQLT_INT);
     oci_execute($true_answer);
     $row = oci_fetch_array($true_answer, OCI_ASSOC);
     oci_close($c);
