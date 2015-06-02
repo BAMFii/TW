@@ -1,3 +1,4 @@
+
 function Question(qid,q,a1,a2,a3,a4){
     this.qid=qid;
     this.q=q;
@@ -18,12 +19,13 @@ var a4;
 var score=0;
 var currentQuestion=1;
 var userAnswer;
+var replacement;
 
 
 function processor(){
 
     if(xmlhttp.readyState===0||xmlhttp.readyState===4){
-        xmlhttp.open("GET","http://localhost/gus/gameController.php?category=movies",true);
+        xmlhttp.open("GET","http://localhost/gus/gameController.php?category=music",true);
         xmlhttp.onreadystatechange = handleQuizJSON;
         xmlhttp.send(null);
     }
@@ -71,24 +73,18 @@ function handleQuizJSON() {
     }
 }
 
-function veziQuiz(){
-    var quiz2 = [];
-    quiz2.push(new Question(1, 2, 3, 3, 4, 5));
-    quiz2.push(new Question(1, 2, 3, 3, 4, 5));
-
-}
-
 
 function playQuiz(intrebare){
     var answers=[intrebare.a1,intrebare.a2,intrebare.a3,intrebare.a4];
     answers=shuffle(answers);
-    var replacement=document.getElementById("rep");
+    replacement=document.getElementById("rep");
     replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'ans1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'ans2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'ans3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'ans4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
 }
 
 function nextQuestion(){
     currentQuestion++;
-    if(currentQuestion===8) {
+    if(currentQuestion===7) {
+        setTimeout('',1000);
         replacement.innerHTML="<div id=\'endOfQuiz\'> <h1> Congrats! You nailed "+ score +" out of 6!</h1> </div>";
     }
     else
@@ -97,11 +93,9 @@ function nextQuestion(){
 
 function answerQuestion(clickedId){
     userAnswer=document.getElementById(clickedId).value;
-    if(verifyAnswer(userAnswer) === true){
-        score++;
-    }
+    verifyAnswer(userAnswer);
 
-    nextQuestion();
+
 
     return clickedId;
 }
@@ -109,10 +103,14 @@ function answerQuestion(clickedId){
 function checkIfCorrect(){
     if (xmlhttp.status === 200 && xmlhttp.readyState === 4) {
         var rezultat=xmlhttp.responseText;
-        if(rezultat==='true')
-            return true;
+        if(rezultat==='true'){
+            score++;
+            console.log(score);
+            nextQuestion();
+        }
         else
-            return false;
+            nextQuestion();
+
         /*var result = JSON.parse(xmlhttp.responseText);
          var obj = result[0];
          for (var key in obj){
@@ -147,3 +145,4 @@ function shuffle(array) {
 
     return array;
 }
+
