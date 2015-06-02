@@ -10,14 +10,16 @@ class Question
 {
 
     var $qid;
+    var $gid;
     var $correct_answer;
     var $answer_2;
     var $answer_3;
     var $answer_4;
 
-    function __construct($qid, $correct_answer, $answer_2, $answer_3, $answer_4)
+    function __construct($qid, $gid, $correct_answer, $answer_2, $answer_3, $answer_4)
     {
         $this->qid = $qid;
+        $this->gid=$gid;
         $this->correct_answer = $correct_answer;
         $this->answer_2 = $answer_2;
         $this->answer_3 = $answer_3;

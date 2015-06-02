@@ -1,6 +1,9 @@
 <?php
 <!--<!DOCTYPE html>-->
 <html>
+<head>
+    <script src="forProfile.js"></script>
+</head>
 <body>
 
 <form action="export.php" name="export" method="post" >
@@ -11,7 +14,7 @@
 			File Name:   <input id="fn" type="text" name = "fname" ><br>
 			<input type="submit" value="Import from CSV"> Import from CSV </input>
 		</form>
-<button type='submit'   value='go'><a href ="profile.html">Profile</a></button>
+<button type='submit' onclick="return getProfile();"  value='go'>Profile</button>
 <button type='submit'   value='go'><a href ="play.html">Play</a></button>
 <form action="logout.php" name="logout" method="post" >
 			File Name:   <input id="fn" type="text" name = "fname" ><br>
@@ -19,5 +22,10 @@
 		</form>
 <button type='submit' value='DoamneAjuta'><a href="experiment.html">Start a game of GuS</a></button>
 
+<form action="logout.php" name="export" method="post" >
+    <button type='submit'  value='ded'>Logout</button>
+    </form>
+
+<div id="Profile"></div>
 </body>
 </html>

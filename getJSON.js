@@ -1,6 +1,7 @@
 
-function Question(qid,q,a1,a2,a3,a4){
+function Question(qid,game,q,a1,a2,a3,a4){
     this.qid=qid;
+    this.game=game;
     this.q=q;
     this.a1=a1;
     this.a2=a2;
@@ -12,6 +13,7 @@ var xmlhttp = new XMLHttpRequest();
 var quiz = [];
 var question="Who is this person?";
 var qid;
+var game=0;
 var a1;
 var a2;
 var a3;
@@ -52,6 +54,8 @@ function handleQuizJSON() {
             var obj = result[k];
             qid = obj.qid;
 
+            game=obj.gid;
+
             a1 = obj.correct_answer;
 
             a2 = obj.answer_2;
@@ -61,7 +65,7 @@ function handleQuizJSON() {
             a4 = obj.answer_4;
 
 
-            quiz.push(new Question(qid, question, a1, a2, a3, a4));
+            quiz.push(new Question(qid, game, question, a1, a2, a3, a4));
         }
         playQuiz(quiz[0]);
         return true;
@@ -77,14 +81,16 @@ function handleQuizJSON() {
 function playQuiz(intrebare){
     var answers=[intrebare.a1,intrebare.a2,intrebare.a3,intrebare.a4];
     answers=shuffle(answers);
-    replacement=document.getElementById("rep");
-    replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'ans1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'ans2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'ans3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'ans4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
+    replacement=document.getElementById("BUMBUM");
+    replacement.innerHTML="<div id=\'question\'> <h1>"+intrebare.q+"</h1> </div> <div> <div class=\'imaginare\' id=\"image\"> <img src=\"http://localhost/gus/getPicture.php?questionId="+intrebare.qid+"\"> </img> </div> <div class=\"answer\" id=\'ans1\'> <button id=\'a1\' value=\'"+answers[0]+"\' onclick=\"answerQuestion(this.id)\">"+answers[0]+"</button> </div> <div class=\"answer\" id=\'ans2\'> <button id=\'a2\' value=\'"+answers[1]+"\' onclick=\"answerQuestion(this.id)\">"+answers[1]+"</button> </div> <div class=\"answer\" id=\'ans3\'> <button id=\'a3\' value=\'"+answers[2]+"\' onclick=\"answerQuestion(this.id)\">"+answers[2]+"</button> </div> <div class=\"answer\" id=\'ans4\'> <button id=\'a4\' value=\'"+answers[3]+"\' onclick=\"answerQuestion(this.id)\">"+answers[3]+"</button> </div> </div>";
 }
 
 function nextQuestion(){
     currentQuestion++;
     if(currentQuestion===7) {
         setTimeout('',1000);
+        xmlhttp.open("POST","http://localhost/gus/playGame.php?gameId=1&points="+score,true);
+        xmlhttp.send();
         replacement.innerHTML="<div id=\'endOfQuiz\'> <h1> Congrats! You nailed "+ score +" out of 6!</h1> </div>";
     }
     else

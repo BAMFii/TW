@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="forProfile.js"></script>
+        <script type="text/javascript" src="getJSON.js"></script>
+        <script type="text/javascript" src="getATOM.js"></script>
+        <script type="text/javascript" src="History.js"></script>
+        <link rel="stylesheet" type="text/css" href="profile.css">
+    </head>
+<body>
+
+<link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+
+<div class="nav">
+    <ul>
+        <li class="home"><a href="http://localhost/gus/profile.html">Home</a></li>
+        <li class="playGuS"><a href="#" onclick="return processor()">Play GuS</a></li>
+        <li class="profile"><a href="#" onclick="return getProfile();">Profile</a></li>
+        <li class="logout"><a href="http://localhost/gus/logout.php" class="logoutProfile">Logout</a></li>
+    </ul>
+</div>
+
+<div class="buttonsProfile">
+    <a class="buttonHistory" href="#" onclick="return getHistory()">History</a>
+    <br>
+    <a class="buttonRanking" href="#" onclick="return getRanking()">Ranking</a>
+</div>
+
+<div id="BUMBUM" class="print">
+
+</div>
+</body>
+
+</html>

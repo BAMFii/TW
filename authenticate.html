@@ -1,8 +1,54 @@
+<!DOCTYPE html>
 <html>
+
+<head>
+    <script type="text/javascript" src="login.js"></script>
+    <link rel="stylesheet" type="text/css" href="authenticate.css">
+</head>
+
 <body>
 
-<button type='submit'   value='go'><a href ="login.html">Login</a></button>
-<button type='submit'   value='go'><a href ="register.html">Register</a></button>
+<link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+
+<div class="nav">
+    <ul>
+    <form action="login.php" method="POST">
+        <input type="text" class="user" id="uNameLogin" placeholder="Username">
+        <input type="password" class="pass" id="passLogin" placeholder="Password">
+        <button type="submit" value="haha"></button>
+        <li class="login"><a href="#" onclick="return login();" class="loginHome" type="submit">Login</a></li>
+    </form>
+
+    </ul>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="buttonPlay">
+    <a class="playGuS" href="#">Play GuS</a>
+</div>
+
+<div class="register">
+    <div class="container">
+        <p>Register Here</p>
+            <form action="register.php" method="POST">
+        <input id="fn" type="text" name="fname" placeholder="First Name">
+        <br>
+        <input id="ln" type="text" name="lname" placeholder="Last Name">
+        <br>
+
+        <input id="un" type="text" name="uname" placeholder="Username">
+        <br>
+
+        <input id="pw" type="password" name="pword" placeholder="Password">
+        <br>
+        <input type="submit" value="Register"> </input>
+            </form>
+    </div>
+</div>
+
 
 </body>
+
 </html>

@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #FFF;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 50px;
+}
+
+.nav ul {
+    list-style: none;
+    background-color: #000;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.nav li {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2em;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid #888;
+}
+
+.nav li {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2em;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid #888;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: .3s background-color;
+}
+
+.nav a:hover {
+    background-color: #005656;
+}
+
+.nav a.active {
+    background-color: #fff;
+    color: #444;
+    cursor: default;
+}
+
+@media screen and (min-width: 600px) {
+    .nav li {
+        width: 170px;
+        border-bottom: none;
+        height: 50px;
+        line-height: 50px;
+        font-size: 1.7em;
+    }
+    .nav li {
+        display: inline-block;
+        margin-right: -4px;
+    }
+}
+
+.buttonHistory {
+    margin-top: 90px;
+}
+
+.buttonRanking {
+    margin-top: 40px;
+}
+
+.buttonsProfile a {
+    font-size: 1.7em;
+    font-family: Bangers, cursive;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #000000;
+    margin-left: 40px;
+}
+
+.buttonsProfile a:hover {
+    background-color: #005656;
+}
+
+.print {
+    position: relative;
+    margin-top: -160px;
+    margin-right: 50px;
+    margin-bottom: 25px;
+    margin-left: 400px;
+}
+
+.print h3 {
+    font-size: 1.7em;
+    font-family: 'Bangers', cursive;
+}
+
+.print li {
+    font-size: 1.3em;
+}
+
+.print p {
+    font-size: 1.2em;
+}

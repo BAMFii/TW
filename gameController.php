@@ -24,7 +24,7 @@ if (getCurrentUsername()!=null) {
 
     while (($row = oci_fetch_array($category_question, OCI_ASSOC)) != false) {
 
-        array_push($questions, new Question($row['QID'], $row['CORRECT_ANSWER'], $row['ANSWER_2'], $row['ANSWER_3'], $row['ANSWER_4']));
+        array_push($questions, new Question($row['QID'], $gameId, $row['CORRECT_ANSWER'], $row['ANSWER_2'], $row['ANSWER_3'], $row['ANSWER_4']));
     }
     $game = new Game($gameId, $category, $questions);
     oci_close($c);

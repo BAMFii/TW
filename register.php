@@ -23,7 +23,7 @@
         oci_execute($profile);
         oci_commit($c);
         oci_close($c);
-        header("Location: http://localhost/gus/authenticate.html ");//todo
+        header("Location: http://localhost/gus/profile.html ");//todo
     }
     else{
         die ("Username already exists. Try another one");

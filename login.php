@@ -31,8 +31,8 @@ if (getCurrentUsername()==null) {
             oci_execute($stid);
             oci_close($c);
 
-            setcookie("sid", $token);
-            header("Location: http://localhost/gus/mainPage.html.html ");//todo
+            setcookie('sid', $token);
+            header("Location: http://localhost/gus/profile.html ");//todo
         } else {
             die  ("Wrong username,password combination");
 
@@ -42,7 +42,7 @@ if (getCurrentUsername()==null) {
     }
 }
 else{
-    header("Location: http://localhost/gus/mainPage.html.html ");//todo
+    header("Location: http://localhost/gus/profile.html ");//todo
 
 }
 
