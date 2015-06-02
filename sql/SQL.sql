@@ -115,10 +115,6 @@ first_name VARCHAR2(30),
 points number
 );
 
-INSERT INTO user_profile values ('gffzr23','Nechita','Bogdan',0);
-INSERT INTO user_profile values ('qxtkfzmfqmm22','Drob','Gica',0);
-INSERT INTO user_profile values ('kdqeuopeb17','Daneliuc','Mihai',0);
-INSERT INTO user_profile values ('qslhoadazmcd12','Coca','Cola',0);
 
 
 
@@ -130,62 +126,6 @@ answer_2 VARCHAR(30),
 answer_3 VARCHAR(30),
 answer_4 VARCHAR(30)
 );
-BEGIN
-  INSERT INTO questions
-   VALUES (1,'Usher','Ricky Martin','P Diddy','Daren Hayes');
-
-INSERT INTO questions 
-   VALUES (2,'Roger Federer', 'Rafael Nadal','Novak Djokovic','Andy Murray');
-   
-INSERT INTO questions 
-   VALUES (3,'Angus T Jones', 'Jon Cryer','Ashton Kutcher','Vin Diesel');
-
-INSERT INTO questions 
-   VALUES (4,'P Diddy','Ricky Martin','Justin Bieber','Sam Smith');
-   
-INSERT INTO questions 
-   VALUES (5,'Andy Roddick','Tiger Woods','Shaun Murphy','Andy Murray');
-   
-INSERT INTO questions 
-   VALUES (6,'Charlie Sheen','Jon Cryer','Tobey Maguire','Brad Pitt');
-   
-INSERT INTO questions
-   VALUES (7,'Rafael Nadal','Lleyton Hewitt','Muhammad Ali','Novak Djokovic');
-   
-INSERT INTO questions 
-   VALUES (8,'Adele','Christina Aguilera','Amy Winehouse','Keisha');
-   
-INSERT INTO questions 
-   VALUES (9,'Mickey Rourke','Robert Downey jr','Brad Pitt','Angus T Jones');
-   
-INSERT INTO questions 
-   VALUES (10,'Lleyton Hewitt','Andy Roddick','Tiger Woods','Roger Federer');
-   
-INSERT INTO questions 
-   VALUES (11,'Shakira','Adele','Janet Jackson','Nicole Scherzinger');
-   
-INSERT INTO questions 
-   VALUES (12,'Denise Richards','Allison Hannigan','Cobie Smulders','Kirsten Dunst');
-   
-INSERT INTO questions 
-   VALUES (13,'Novak Djokovic','Tiger Woods','Rafael Nadal','Andy Murray');
-   
-INSERT INTO questions 
-   VALUES (14,'Janet Jackson','Beyonce','Keisha','Fergie');
-   
-INSERT INTO questions
-   VALUES (15,'Angelina Jolie','Emma Stone','Jennifer Morrison','Emma Watson');
-   
-INSERT INTO questions
-   VALUES (16,'Maria Sharapova','Simona Halep','Venus Williams','Victoria Azarenka');
-   
-INSERT INTO questions 
-   VALUES (17,'Ricky Martin','Sam Smith','Justin Timberlake','Robbie Williams');
-   
-INSERT INTO questions 
-   VALUES (18,'Allison Hannigan','Sharon Stone','Kirsten Dunst','Emma Stone');
-END;
-
 
 
 
@@ -225,27 +165,6 @@ username VARCHAR(30) not null unique,
 passworduser VARCHAR(30)
 );
 
-create or replace PROCEDURE add_all_users (number_of_users IN INT)
-IS
-    random_length_user int;
-    random_length_pass int;
-    random_username varchar(30);
-    passwd varchar(30);
-    the_username varchar(40);
-    OK int;
-      
-BEGIN
-    FOR i IN 1..number_of_users
-    LOOP  
-        random_length_user:=trunc(DBMS_RANDOM.value(5,25));
-        random_username:=DBMS_RANDOM.string('L',random_length_user);
-        the_username:=random_username||i;
-        passwd:='user'||i;
-       
-           INSERT INTO utilizatori(username,passwordUser) VALUES(the_username,passwd);
-               END LOOP;
-END add_all_users;
-
 
 
 
@@ -254,40 +173,7 @@ qid INTEGER,
 picture BFILE
 );
 
-INSERT INTO pictures (qid, picture)
-   VALUES (1, BFILENAME('DIR_1', 'usher.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (2, BFILENAME('DIR_2', 'Federer.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (3, BFILENAME('DIR_3', 'jones.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (4, BFILENAME('DIR_4', 'p diddy.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (5, BFILENAME('DIR_5', 'roddick.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (6, BFILENAME('DIR_6', 'sheen.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (7, BFILENAME('DIR_7', 'nadal.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (8, BFILENAME('DIR_8', 'adele.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (9, BFILENAME('DIR_9', 'rourke.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (10, BFILENAME('DIR_10', 'hewitt.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (11, BFILENAME('DIR_11', 'shakira.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (12, BFILENAME('DIR_12', 'richards.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (13, BFILENAME('DIR_13', 'djokovic.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (14, BFILENAME('DIR_14', 'janet jackson.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (15, BFILENAME('DIR_15', 'jolie.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (16, BFILENAME('DIR_16', 'sharapova.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (17, BFILENAME('DIR_17', 'martin.jpg'));
-INSERT INTO pictures (qid, picture)
-   VALUES (18, BFILENAME('DIR_18', 'hannigan.jpg'));
-
+CREATE TABLE utlizatori_token(
+token VARCHAR(20),
+username VARCHAR(30)
+)
